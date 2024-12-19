@@ -1,0 +1,29 @@
+services:
+  client:
+    image: "rupeshbiswas/multi-client"
+    hostname: client
+
+  server:
+    image: "rupeshbiswas/multi-server"
+    hostname: api
+    environment:
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+      - PGUSER=$PGUSER
+      - PGHOST=$PGHOST
+      - PGDATABASE=$PGDATABASE
+      - PGPASSWORD=$PGPASSWORD
+      - PGPORT=$PGPORT
+
+  worker:
+    image: "rupeshbiswas/multi-worker"
+    hostname: worker
+    environment:
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+
+  nginx:
+    image: "rupeshbiswas/multi-nginx"
+    hostname: nginx
+    ports:
+      - '80:80'
