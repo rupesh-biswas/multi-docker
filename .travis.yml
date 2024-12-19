@@ -7,3 +7,9 @@ before_install:
 
 script:
   - docker run -e CI=true rupeshbiswas/react-test npm run test
+
+after_success:
+  - docker build -t rupeshbiswas/multi-client ./client
+  - docker build -t rupeshbiswas/multi-nginx ./nginx
+  - docker build -t rupeshbiswas/multi-server ./server
+  - docker build -t rupeshbiswas/multi-worker ./worker
